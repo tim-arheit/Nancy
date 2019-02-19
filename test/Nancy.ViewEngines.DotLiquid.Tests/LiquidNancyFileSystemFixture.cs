@@ -1,6 +1,7 @@
 namespace Nancy.ViewEngines.DotLiquid.Tests
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using Configuration;
     using FakeItEasy;
@@ -249,7 +250,7 @@ namespace Nancy.ViewEngines.DotLiquid.Tests
                 .ReturnsLazily(x => viewLocator.LocateView(x.Arguments.Get<string>(0), null));
 
             context = new Context(new List<Hash>(), new Hash(),
-                Hash.FromAnonymousObject(new { nancy = renderContext }), false);
+                Hash.FromAnonymousObject(new { nancy = renderContext }), ErrorsOutputMode.Rethrow, 1, 1000, CultureInfo.CurrentCulture); // TODO: DotLiquid changed this signature, check the last 3 arguments.  They were not required before.
 
             return new LiquidNancyFileSystem(startupContext, new[] { "liquid" });
         }

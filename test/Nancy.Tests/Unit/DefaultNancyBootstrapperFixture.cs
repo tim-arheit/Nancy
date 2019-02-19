@@ -35,8 +35,8 @@
             var request2 = new FakeRequest("GET", "/");
 
             // When
-            await engine.HandleRequest(request);
-            await engine.HandleRequest(request2);
+            await engine.HandleRequest(request).ConfigureAwait(false);
+            await engine.HandleRequest(request2).ConfigureAwait(false);
 
             // Then
             bootstrapper.RequestContainerInitialisations.Any(kvp => kvp.Value > 1).ShouldBeFalse();

@@ -2,7 +2,7 @@ namespace Nancy.Testing.Tests
 {
     using System;
     using System.Linq;
-    using AngleSharp.Parser.Html;
+    using AngleSharp.Html.Parser;
     using Xunit;
 
     public class AssertExtensionsTests
@@ -17,7 +17,7 @@ namespace Nancy.Testing.Tests
             var parser = new HtmlParser();
 
             var document =
-                parser.Parse(@"<html><head></head><body><div id='testId' class='myClass' attribute1 attribute2='value2'>Test</div><div class='anotherClass'>Tes</div><span class='class'>some contents</span><span class='class'>This has contents</span></body></html>");
+                parser.ParseDocument(@"<html><head></head><body><div id='testId' class='myClass' attribute1 attribute2='value2'>Test</div><div class='anotherClass'>Tes</div><span class='class'>some contents</span><span class='class'>This has contents</span></body></html>");
 
             this.query =
                 new QueryWrapper(new[] { document.DocumentElement });

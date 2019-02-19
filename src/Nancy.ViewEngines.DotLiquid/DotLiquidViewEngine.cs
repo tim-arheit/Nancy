@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
 
     using global::DotLiquid;
@@ -148,7 +149,7 @@
             // Build the response
             return new HtmlResponse(statusCode: status, contents: stream =>
             {
-                parsed.Render(stream, new RenderParameters
+                parsed.Render(stream, new RenderParameters(CultureInfo.CurrentCulture)
                 {
                     LocalVariables = hashedModel,
                     Registers = Hash.FromAnonymousObject(new { nancy = renderContext })

@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using AngleSharp.Dom.Html;
-    using AngleSharp.Parser.Html;
+    using AngleSharp.Html.Dom;
+    using AngleSharp.Html.Parser;
 
     /// <summary>
     /// A basic wrapper around CsQuery
@@ -22,7 +22,7 @@
             var parser = new HtmlParser();
             using (var stream = new MemoryStream(buffer.ToArray()))
             {
-                this.document = parser.Parse(stream);
+                this.document = parser.ParseDocument(stream);
             }
         }
 

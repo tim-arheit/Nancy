@@ -47,7 +47,7 @@
             var browser = new Browser(bootstrapper);
 
             // When
-            var result = await browser.Get(DiagnosticsConfiguration.Default.Path);
+            var result = await browser.Get(DiagnosticsConfiguration.Default.Path).ConfigureAwait(false);
 
             // Then
             Assert.True(result.Body.AsString().Contains("Diagnostics Disabled"));
@@ -74,7 +74,7 @@
             var browser = new Browser(bootstrapper);
 
             // When
-            var result = await browser.Get(DiagnosticsConfiguration.Default.Path);
+            var result = await browser.Get(DiagnosticsConfiguration.Default.Path).ConfigureAwait(false);
 
             // Then
             Assert.True(result.Body.AsString().Contains("Diagnostics Disabled"));
@@ -102,7 +102,7 @@
             var browser = new Browser(bootstrapper);
 
             // When
-            var result = await browser.Get(DiagnosticsConfiguration.Default.Path);
+            var result = await browser.Get(DiagnosticsConfiguration.Default.Path).ConfigureAwait(false);
 
             // Then
             result.Body["#login"].ShouldExistOnce();
@@ -132,7 +132,7 @@
             var result = await browser.Get(DiagnosticsConfiguration.Default.Path, with =>
                 {
                     with.Cookie(DiagsCookieName, this.GetSessionCookieValue("password"));
-                });
+                }).ConfigureAwait(false);
 
             // Then
             result.Body["#infoBox"].ShouldExistOnce();
@@ -162,7 +162,7 @@
             var result = await browser.Get(DiagnosticsConfiguration.Default.Path, with =>
             {
                 with.Cookie(DiagsCookieName, this.GetSessionCookieValue("password", DateTime.Now.AddMinutes(-10)));
-            });
+            }).ConfigureAwait(false);
 
             // Then
             result.Body["#login"].ShouldExistOnce();
@@ -192,7 +192,7 @@
             var result = await browser.Get(DiagnosticsConfiguration.Default.Path, with =>
             {
                 with.Cookie(DiagsCookieName, this.GetSessionCookieValue("wrongPassword"));
-            });
+            }).ConfigureAwait(false);
 
             // Then
             result.Body["#login"].ShouldExistOnce();
@@ -222,7 +222,7 @@
             var result = await browser.Post(DiagnosticsConfiguration.Default.Path, with =>
             {
                 with.FormValue("Password", "wrongpassword");
-            });
+            }).ConfigureAwait(false);
 
             // Then
             result.Body["#login"].ShouldExistOnce();
@@ -253,7 +253,7 @@
             var result = await browser.Post(DiagnosticsConfiguration.Default.Path, with =>
             {
                 with.FormValue("Password", "password");
-            });
+            }).ConfigureAwait(false);
 
             // Then
             result.Cookies.Any(c => c.Name == DiagsCookieName).ShouldBeTrue();
@@ -285,7 +285,7 @@
             var result = await browser.Get(DiagnosticsConfiguration.Default.Path, with =>
             {
                 with.Cookie(DiagsCookieName, this.GetSessionCookieValue("password", expiryDate));
-            });
+            }).ConfigureAwait(false);
 
             // Then
             result.Cookies.Any(c => c.Name == DiagsCookieName).ShouldBeTrue();
@@ -317,7 +317,7 @@
             var result = await browser.Get(DiagnosticsConfiguration.Default.Path + "/interactive/providers/", with =>
                 {
                     with.Cookie(DiagsCookieName, this.GetSessionCookieValue("password"));
-                });
+                }).ConfigureAwait(false);
 
             // Then
             result.Body.AsString().ShouldNotContain("Fake testing provider");
@@ -348,7 +348,7 @@
             {
                 with.Cookie(DiagsCookieName, this.GetSessionCookieValue("password"));
                 with.JsonBody(new SettingsModel { Name = "CaseSensitive", Value = true });
-            });
+            }).ConfigureAwait(false);
             
             // Then
             result.StatusCode.ShouldEqual(HttpStatusCode.OK);

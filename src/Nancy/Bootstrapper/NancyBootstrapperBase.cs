@@ -91,10 +91,10 @@
         {
             get {
                 return this.assemblyCatalog ?? (
-#if !CORE
-                    this.assemblyCatalog = new AppDomainAssemblyCatalog()
-#else
+#if CORE
                     this.assemblyCatalog = new DependencyContextAssemblyCatalog()
+#else                    
+                    this.assemblyCatalog = new AppDomainAssemblyCatalog()
 #endif
                 );
             }

@@ -6,6 +6,7 @@ namespace Nancy.Tests.Unit.Bootstrapper
     using Nancy.ModelBinding;
     using Xunit;
 
+
     public class NancyInternalConfigurationFixture
     {
         private readonly ITypeCatalog typeCatalog;
@@ -14,10 +15,10 @@ namespace Nancy.Tests.Unit.Bootstrapper
         {
             IAssemblyCatalog assemblyCatalog;
 
-#if !CORE
-            assemblyCatalog = new AppDomainAssemblyCatalog();
+#if CORE
+            assemblyCatalog = new DependencyContextAssemblyCatalog();            
 #else
-            assemblyCatalog = new DependencyContextAssemblyCatalog();
+            assemblyCatalog = null; // new AppDomainAssemblyCatalog(); TODO: This needs fixed!
 #endif
 
             this.typeCatalog = new DefaultTypeCatalog(assemblyCatalog);

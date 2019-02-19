@@ -2,7 +2,7 @@ namespace Nancy.Testing.Tests
 {
     using System.Linq;
     using AngleSharp.Dom;
-    using AngleSharp.Parser.Html;
+    using AngleSharp.Html.Parser;
     using Xunit;
 
     public class QueryWrapperTests
@@ -19,7 +19,7 @@ namespace Nancy.Testing.Tests
         {
             // Given
             var document =
-                this.parser.Parse(@"<html><head></head><body><div id='testId' class='myClass'>Test</div></body></html>");
+                this.parser.ParseDocument(@"<html><head></head><body><div id='testId' class='myClass'>Test</div></body></html>");
 
             var queryResult =
                 document.QuerySelectorAll("#testId").FirstOrDefault();
@@ -40,7 +40,7 @@ namespace Nancy.Testing.Tests
         {
             // Given
             var document =
-                this.parser.Parse(@"<html><head></head><body><table><tr><td></td><td></td></tr><tr><td></td><td></td></tr></table></body></html>");
+                this.parser.ParseDocument(@"<html><head></head><body><table><tr><td></td><td></td></tr><tr><td></td><td></td></tr></table></body></html>");
 
             var wrapper = new QueryWrapper(new[] { document.DocumentElement });
 
